@@ -8,4 +8,8 @@ class UpdateCounterAction {
   final Counter counter;
 
   UpdateCounterAction(this.counter);
+
+  toJson() {
+    return {'counter': counter.toJson()};
+  }
 }

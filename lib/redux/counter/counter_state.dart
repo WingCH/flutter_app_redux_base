@@ -41,4 +41,11 @@ class CounterState {
   int get hashCode {
     return counter.hashCode;
   }
+
+  toJson() {
+    return {
+      'LoadingStatus': counterStatus.toString(),
+      'Counter': counter.toJson()
+    };
+  }
 }

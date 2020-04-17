@@ -13,7 +13,7 @@ import 'package:redux_dev_tools/redux_dev_tools.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  var remoteDevtools = RemoteDevToolsMiddleware('192.168.1.52:8000');
+  var remoteDevtools = RemoteDevToolsMiddleware('localhost:8888');
   await remoteDevtools.connect();
   final store = DevToolsStore<AppState>(
     appReducer,

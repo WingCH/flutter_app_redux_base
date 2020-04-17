@@ -20,4 +20,8 @@ class Counter {
   int get hashCode {
     return count.hashCode;
   }
+
+  toJson() {
+    return {'count': count};
+  }
 }

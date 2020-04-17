@@ -39,4 +39,11 @@ class ConfigState {
   int get hashCode {
     return lang.hashCode ^ url.hashCode;
   }
+
+  toJson() {
+    return {
+      'lang': lang,
+      'url': url,
+    };
+  }
 }

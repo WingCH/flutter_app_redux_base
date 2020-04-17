@@ -42,7 +42,12 @@ class AppState {
   int get hashCode {
     return configState.hashCode ^ counterState.hashCode;
   }
-
+  toJson() {
+    return {'AppState': {
+      "ConfigState": configState.toJson(),
+      "CounterState": counterState.toJson(),
+    }};
+  }
 //  @override
 //  String toString() {
 //    return {
