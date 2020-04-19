@@ -1,18 +1,36 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_flipperkit/flutter_flipperkit.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_logging/redux_logging.dart';
-import 'package:redux_remote_devtools/redux_remote_devtools.dart';
 import 'redux/app/app_reducer.dart';
 import 'redux/app/app_state.dart';
 import 'redux/counter/counter_middleware.dart';
 import 'ui/pages/main_page.dart';
 import 'utils/keys.dart';
 import 'utils/routers.dart';
-import 'package:redux_dev_tools/redux_dev_tools.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FlipperClient flipperClient = FlipperClient.getDefault();
+
+  flipperClient.addPlugin(new FlipperNetworkPlugin(
+      // If you use http library, you must set it to false and use https://pub.dev/packages/flipperkit_http_interceptor
+      // useHttpOverrides: false,
+      // Optional, for filtering request
+      filter: (HttpClientRequest request) {
+    String url = '${request.uri}';
+    if (url.startsWith('https://via.placeholder.com') ||
+        url.startsWith('https://gravatar.com')) {
+      return false;
+    }
+    return true;
+  }));
+  flipperClient.addPlugin(new FlipperReduxInspectorPlugin());
+  flipperClient.addPlugin(new FlipperSharedPreferencesPlugin());
+  flipperClient.start();
+
   final store = Store<AppState>(
     appReducer,
     initialState: AppState.initial(),
