@@ -10,6 +10,7 @@ import 'redux/counter/counter_middleware.dart';
 import 'ui/pages/main_page.dart';
 import 'utils/keys.dart';
 import 'utils/routers.dart';
+import 'package:flipperkit_redux_middleware/flipperkit_redux_middleware.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +38,16 @@ Future<void> main() async {
     middleware: [
       CounterMiddleware(),
       LoggingMiddleware.printer(),
-    ],
+    ]..add(FlipperKitReduxMiddleware(
+        // Optional, for filtering action types
+        filter: (actionType) {
+          return actionType.startsWith('\$');
+        },
+        // Optional, for get action type
+        getActionType: (action) {
+          return action.toString();
+        },
+      )),
   );
 
   runApp(

@@ -25,6 +25,7 @@ dependencies:
   redux_logging: ^0.4.0
   redux_remote_devtools: ^1.0.2
   flutter_flipperkit: ^0.0.23
+  flipperkit_redux_middleware: ^0.0.4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
